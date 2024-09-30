@@ -1,0 +1,31 @@
+name: Python CI
+
+on:
+  push:
+    branches:
+      - main  # Triggers the action on push to main branch
+  pull_request:
+    branches:
+      - main  # Triggers the action when a pull request is made to main branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu version
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'  # Replace with your Python version
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi  # Install dependencies
+
+    - name: Run tests
+      run: |
+        if [ -f test_g.py ]; then python -m unittest test_g.py; fi  # Replace with your test file
